@@ -13,8 +13,7 @@
 # Dependency directories
 /public/static
 
-# Next.js .env files
-.env.local
+# Next.js .env files 
 .env.development.local
 .env.test.local
 .env.production.local
@@ -43,5 +42,4 @@ yarn.lock
 # Next.js serverless functions (if used)
 /.vercel
 
-# Ignore .env files containing sensitive information
-.env
+ 
