@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  // Uses connection pooling
+  url       = env("POSTGRES_PRISMA_URL")
+  // Uses direct connection, ⚠️ make sure to keep this to `POSTGRES_URL_NON_POOLING`
+  // or you'll have dangling databases from migrations
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String
+  message   String? // Optional field for the message
+  createdAt DateTime @default(now())
+}
+
+model Representation {
+  id      Int     @id @default(autoincrement())
+  country String
+  details String? // Optional field for when there's no data
+  name    String?
+  phone   String?
+  email   String?
+  website String?
+  address String?
+}
+
+model ContactDetails {
+  id                 Int      @id @default(autoincrement())
+  companyName        String
+  address            String
+  postalCode         String
+  fiscalCode         String
+  registrationNumber String
+  phone              String
+  mobilePhone        String
+  email              String
+  website            String
+  businessHours      String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+model Procuration {
+  id          Int       @id @default(autoincrement())
+  delegator   Json
+  delegate    Json
+  date        DateTime
+  city        String
+  expenses    Json
+  services    Json
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  userId      Int 
+}

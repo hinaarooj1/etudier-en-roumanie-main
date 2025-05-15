@@ -1,0 +1,25 @@
+ 
+DATABASE_URL=postgresql://neondb_owner:npg_msPrFLB3e8fy@ep-lively-term-a4v5lc02-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require
+# DATABASE_URL=mongodb+srv://ahmarjabbar7:iAPDmBylw0M8zZaB@cluster0.prauf55.mongodb.net/data
+# For uses requiring a connection without pgbouncer
+POSTGRES_URL_NON_POOLING="postgresql://neondb_owner:vNJ9GRaKCsn1@ep-damp-tooth-a4a1tknz.us-east-1.aws.neon.tech/neondb?sslmode=require"
+
+ 
+# Parameters for constructing your own connection string
+PGHOST=ep-damp-tooth-a4a1tknz-pooler.us-east-1.aws.neon.tech
+PGHOST_UNPOOLED=ep-damp-tooth-a4a1tknz.us-east-1.aws.neon.tech
+# PGUSER=neondb_owner
+# PGDATABASE=neondb
+# PGPASSWORD=vNJ9GRaKCsn1
+# Parameters for Vercel Postgres Templates
+POSTGRES_URL= 
+POSTGRES_URL_NON_POOLING="postgresql://neondb_owner:vNJ9GRaKCsn1@ep-damp-tooth-a4a1tknz.us-east-1.aws.neon.tech/neondb?sslmode=require"
+
+PGUSER=neondb_owner
+PGPASSWORD=vNJ9GRaKCsn1
+PGHOST=ep-damp-tooth-a4a1tknz-pooler.us-east-1.aws.neon.tech
+PGDATABASE=neondb
+POSTGRES_URL_NO_SSL=
+POSTGRES_PRISMA_URL="postgresql://neondb_owner:vNJ9GRaKCsn1@ep-damp-tooth-a4a1tknz-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
+
+CALENDLY_LINK=
