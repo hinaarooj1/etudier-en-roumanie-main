@@ -10,7 +10,7 @@ const AgentDashboardPage = () => {
   const [students, setStudents] = useState([]);
   
   const [procurations, setProcurations] = useState([]);
-  const [selectedProcuration, setSelectedProcuration] = useState(null);
+  const [selectedProcuration, setSelectedProcuration] = useState(null); 
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const AgentDashboardPage = () => {
     localStorage.setItem('students', JSON.stringify(updatedStudents));
     setStudents(updatedStudents);
     setSelectedProcuration(data);
+    console.log('data: ', data);
   };
 
   return (

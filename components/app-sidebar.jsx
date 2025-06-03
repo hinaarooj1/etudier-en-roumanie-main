@@ -43,6 +43,11 @@ const items = [
     url: "/admin/dashboard/mandate",
     icon: Contact,
   },
+  {
+    title: "reservation",
+    url: "/admin/dashboard/reservation",
+    icon: Contact,
+  },
 ];
 
 export function AppSidebar() {

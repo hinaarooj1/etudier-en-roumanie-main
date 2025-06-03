@@ -142,7 +142,7 @@ export const Navbar = () => {
           onMenuOpenChange={setIsMenuOpen}
         >
           <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-            <NavbarBrand as="li" className="gap-3 max-w-fit">
+            <NavbarBrand as="ul" className="gap-3 max-w-fit">
               <NextLink
                 className="flex justify-start items-center gap-1"
                 href="/"
@@ -183,7 +183,7 @@ export const Navbar = () => {
                   >
                     <NavbarItem
                       className="p-1 px-3 bg-[#147be2] rounded-md text-white w-full hover:text-[#147be2] hover:bg-transparent hover:border transition-colors flex items-center justify-center gap-2"
-                      asChild
+                      // asChild
                     >
                       <Link
                         href="/contact"
@@ -229,7 +229,7 @@ export const Navbar = () => {
               ))}
               <NavbarItem
                 className="p-1 px-3 bg-[#147be2] rounded-md text-white w-full hover:text-[#147be2] hover:bg-transparent hover:border transition-colors flex items-center justify-center gap-2"
-                asChild
+                // asChild
               >
                 <Link
                   href="/contact"

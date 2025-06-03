@@ -58,7 +58,7 @@ export default function Home() {
               >
                 <div
                   className="mt-4 p-2 bg-[#147be2] rounded-md text-white w-full hover:bg-transparent hover:border transition-colors flex items-center justify-center gap-2"
-                  asChild
+                  // asChild
                 >
                   <Link
                     href="/schedule"
