@@ -25,8 +25,7 @@ model Procuration {
 
 export async function POST(req) {
   try {
-    const body = await req.json();
-    console.log('Procuration data:', body);
+    const body = await req.json(); 
 
     // Validate required fields
     if (!body.delegator?.firstName || !body.delegator?.lastName || !body.city || !body.date) {
@@ -37,10 +36,8 @@ export async function POST(req) {
     }
 
     // Check session
-    const cookieStore = await cookies();
-    console.log('cookieStore: ', cookieStore);
+    const cookieStore = await cookies(); 
     const temp = cookieStore.get("session");
-    console.log('temp: ', temp);
     const session = await decrypt(temp?.value);
 
     // If the user is not logged in, return a 401 Unauthorized response
@@ -87,10 +84,8 @@ export async function DELETE(req) {
     }
 
     // Check session
-    const cookieStore = await cookies();
-    console.log('cookieStore: ', cookieStore);
+    const cookieStore = await cookies(); 
     const temp = cookieStore.get("session");
-    console.log('temp: ', temp);
     const session = await decrypt(temp?.value);
 
     // If the user is not logged in, return a 401 Unauthorized response
@@ -129,9 +124,7 @@ export async function GET(req) {
   try {
     // Check session
     const cookieStore = await cookies();
-    console.log('cookieStore: ', cookieStore);
     const temp = cookieStore.get("session");
-    console.log('temp: ', temp);
     const session = await decrypt(temp?.value);
 
     // If the user is not logged in, return a 401 Unauthorized response

@@ -13,11 +13,11 @@ import useSWR, { mutate } from "swr";
 
 // Define schema
 const representationSchema = z.object({
-  country: z.string().nonempty("Country is required."),
+  country: z.string().optional(),
   name: z.string().optional(),
   phone: z.string().optional(),
-  email: z.string().email("Invalid email address").optional(),
-  website: z.string().url("Invalid website URL").optional(),
+  email: z.string().optional(),
+  website: z.string().optional(),
   address: z.string().optional(),
   details: z.string().optional(),
 });
@@ -40,7 +40,7 @@ export default function RepresentationForm() {
     setServerError(null);
     try {
       const response = await axios.post("/api/representation", data);
-      console.log("Success:", response.data);
+  
       mutate("/api/representation");
       toast.success("Representation created successfully!");
       setLoading(false);
@@ -87,7 +87,7 @@ export default function RepresentationForm() {
     error,
     isLoading: fetchLoading,
   } = useSWR("/api/representation", fetcher);
-  // console.log(data?.data);;
+   
   return (
     <div className="container mx-auto p-4">
       <form

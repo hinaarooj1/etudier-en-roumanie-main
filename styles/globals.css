@@ -164,3 +164,10 @@ html.lenis body {
   height: 1.25rem;
   width: 1.25rem;
 }
+@media (max-width:768px) {
+  
+  .sdsds{
+    align-items: center !important;
+  }
+  
+}

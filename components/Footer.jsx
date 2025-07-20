@@ -13,18 +13,17 @@ import { IoLogoPinterest } from "react-icons/io";
 import bg_dark_logo from "../public/bg_dark_logo.png";
 import useSWR from "swr";
 import { fetcher } from "@/lib/utils/fetcher";
+
 export default function Footer() {
   const { data, error, isLoading } = useSWR("/api/contactDetails", fetcher);
-  console.log(data?.data);
-  return (
-    // <footer className="bg-gradient-to-br from-red-700 via-gray-600 to-slate-800">
-    <footer className="bg-gray-600">
-      {/* Decorative top border */}
-      {/* <div className="h-1 w-full bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600" /> */}
+  
+  // Check if data exists and has at least one item
+  const hasContactData = data?.data?.length > 0;
+  const firstContact = hasContactData ? data.data[0] : null;
 
-      {/* Upper Section */}
+  return (
+    <footer className="bg-gray-600">
       <div className="container mx-auto px-4 pt-16 pb-8">
-        {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Company Info Section */}
           <div className="lg:col-span-4 space-y-6">
@@ -34,7 +33,6 @@ export default function Footer() {
                 height={50}
                 src={bg_dark_logo}
                 width={150}
-                // className="brightness-0 invert"
               />
             </Link>
             <p className="text-gray-300 max-w-md"></p>
@@ -83,7 +81,7 @@ export default function Footer() {
           {/* Quick Links Sections */}
           <div className="lg:col-span-5 grid grid-cols-2 gap-8">
             <div>
-              <h3 className="text-[#147be2]  text-lg font-semibold mb-6">
+              <h3 className="text-[#147be2] text-lg font-semibold mb-6">
                 Quick Links
               </h3>
               <ul className="space-y-4">
@@ -101,46 +99,60 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h3 className="text-[#147be2]  text-lg font-semibold mb-6">
+              <h3 className="text-[#147be2] text-lg font-semibold mb-6">
                 Contact Us
               </h3>
               {isLoading ? (
                 <div>Loading...</div>
               ) : error ? (
                 <div>Error: {error.message}</div>
+              ) : hasContactData ? (
+                <address className="not-italic space-y-4 text-gray-300">
+                  <div className="flex items-start">
+                    <div className="flex-1">
+                      {firstContact.companyName && (
+                        <p>{firstContact.companyName}</p>
+                      )}
+                      {firstContact.address && (
+                        <p>
+                          {firstContact.address}
+                          {firstContact.postalCode && (
+                            <> Code postal : {firstContact.postalCode}</>
+                          )}
+                        </p>
+                      )}
+                      {firstContact.fiscalCode && (
+                        <p>Numéro Fiscal: {firstContact.fiscalCode}</p>
+                      )}
+                      {firstContact.registrationNumber && (
+                        <p>
+                          Numéro d'enregistrement :{" "}
+                          {firstContact.registrationNumber}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    {firstContact.phone && (
+                      <a
+                        className="hover:text-white transition-colors duration-300 block"
+                        href={`tel:${firstContact.phone}`}
+                      >
+                        {firstContact.phone}
+                      </a>
+                    )}
+                    {firstContact.email && (
+                      <a
+                        className="hover:text-white transition-colors duration-300 block"
+                        href={`mailto:${firstContact.email}`}
+                      >
+                        {firstContact.email}
+                      </a>
+                    )}
+                  </div>
+                </address>
               ) : (
-                <>
-                  {data?.data.map((item, index) => (
-                    <address
-                      key={index}
-                      className="not-italic space-y-4 text-gray-300"
-                    >
-                      <div className="flex items-start">
-                        <div className="flex-1">
-                          {item.companyName}
-                          {item.address} Code postal : {item.postalCode} Numéro
-                          Fiscal: {item.fiscalCode}
-                          Numéro d’enregistrement : {item.registrationNumber}
-                        </div>
-                      </div>
-                      <div>
-                        <a
-                          className="hover:text-white transition-colors duration-300 block"
-                          href={`tel:${process.env.phone}`} // Use {} and proper backticks
-                        >
-                          {item.phone}
-                        </a>
-
-                        <a
-                          className="hover:text-white transition-colors duration-300 block"
-                          href={`mailto:${item.email}`}
-                        >
-                          {item.email}
-                        </a>
-                      </div>
-                    </address>
-                  ))}
-                </>
+                <p className="text-gray-300"></p>
               )}
             </div>
           </div>
@@ -150,14 +162,18 @@ export default function Footer() {
             <div className="bg-gradient-to-br from-gray-800 to-gray-700 p-6 rounded-xl shadow-xl">
               <div className="flex items-center gap-2 mb-4">
                 <FaClock className="text-red-500" size={24} />
-                <h3 className="text-[#147be2]  text-lg font-semibold">
+                <h3 className="text-[#147be2] text-lg font-semibold">
                   Business Hours
                 </h3>
               </div>
               <div className="space-y-3 text-gray-300">
                 <div className="flex justify-between">
                   <span>Monday - Friday</span>
-                  <span>{data?.data[0].businessHours}</span>
+                  <span>
+                    {hasContactData && firstContact.businessHours
+                      ? firstContact.businessHours
+                      : ""}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span>Saturday</span>
@@ -169,7 +185,10 @@ export default function Footer() {
                 </div>
                 <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent my-4" />
                 <div className="text-sm text-gray-400">
-                  Available 24/7 for online inquiries at {data?.data[0]?.email}
+                  Available 24/7 for online inquiries at{" "}
+                  {hasContactData && firstContact.email
+                    ? firstContact.email
+                    : "contact@example.com"}
                 </div>
               </div>
             </div>
@@ -182,8 +201,11 @@ export default function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              &copy; {new Date().getFullYear()} {data?.data[0]?.email} All
-              rights reserved.
+              &copy; {new Date().getFullYear()}{" "}
+              {hasContactData && firstContact.companyName
+                ? firstContact.companyName
+                : siteConfig.name}{" "}
+              All rights reserved.
             </p>
             <div className="flex gap-6">
               <Link

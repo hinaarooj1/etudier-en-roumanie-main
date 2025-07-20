@@ -11,6 +11,12 @@ import {
 } from "@/components/ui/select";
 
 export const ServicesSection = ({ control, register }) => {
+  // Helper function to convert string to number
+  const handleNumberInput = (e) => {
+    const value = e.target.value;
+    return value === "" ? "" : parseInt(value, 10);
+  };
+
   return (
     <div className="p-4 border border-gray-200 rounded-md bg-gray-50">
       <h2 className="text-lg font-semibold text-[#1A365D] mb-4">Services et Packs</h2>
@@ -44,7 +50,10 @@ export const ServicesSection = ({ control, register }) => {
           <Label htmlFor="services.preInscriptionFee">Prix Pack Pré-inscription (€)</Label>
           <Input
             type="number"
-            {...register("services.preInscriptionFee", { required: true })}
+            {...register("services.preInscriptionFee", { 
+              required: true,
+              setValueAs: (value) => value === "" ? "" : parseInt(value, 10)
+            })}
             className="border-gray-300"
           />
         </div>
@@ -52,7 +61,10 @@ export const ServicesSection = ({ control, register }) => {
           <Label htmlFor="services.inscriptionFee">Prix Pack Inscription (€)</Label>
           <Input
             type="number"
-            {...register("services.inscriptionFee", { required: true })}
+            {...register("services.inscriptionFee", { 
+              required: true,
+              setValueAs: (value) => value === "" ? "" : parseInt(value, 10)
+            })}
             className="border-gray-300"
           />
         </div>
@@ -63,7 +75,10 @@ export const ServicesSection = ({ control, register }) => {
           <Label htmlFor="services.evaluationFee">Taxe d'évaluation (€)</Label>
           <Input
             type="number"
-            {...register("services.evaluationFee", { required: true })}
+            {...register("services.evaluationFee", { 
+              required: true,
+              setValueAs: (value) => value === "" ? "" : parseInt(value, 10)
+            })}
             className="border-gray-300"
           />
         </div>
@@ -71,7 +86,10 @@ export const ServicesSection = ({ control, register }) => {
           <Label htmlFor="services.agencyAdvance">Avance Agence (€)</Label>
           <Input
             type="number"
-            {...register("services.agencyAdvance", { required: true })}
+            {...register("services.agencyAdvance", { 
+              required: true,
+              setValueAs: (value) => value === "" ? "" : parseInt(value, 10)
+            })}
             className="border-gray-300"
           />
         </div>

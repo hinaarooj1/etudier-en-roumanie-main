@@ -107,8 +107,7 @@ export async function DELETE(req) {
     // Extract search parameters from the URL
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
-
-    console.log("Received search params:", searchParams);
+ 
 
     // Check if the session exists
     const cookieStore = await cookies();

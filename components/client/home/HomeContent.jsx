@@ -437,7 +437,7 @@ export default function HomeContent() {
               <span>Retour aux cartes</span>
             </Button>
             <h2 className="text-2xl bold text-[#147be2]">
-              {activeContent.title}
+              {activeContent?.title}
             </h2>
             <motion.div
               variants={pageTransition}
@@ -446,7 +446,7 @@ export default function HomeContent() {
               transition={{ delay: 0.1, duration: 0.2 }}
             >
               <div
-                dangerouslySetInnerHTML={{ __html: activeContent.content }}
+                dangerouslySetInnerHTML={{ __html: activeContent?.content }}
               />
             </motion.div>
 

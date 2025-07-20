@@ -43,9 +43,20 @@ const items = [
     url: "/admin/dashboard/mandate",
     icon: Contact,
   },
+  
   {
-    title: "reservation",
-    url: "/admin/dashboard/reservation",
+    title: "time slots",
+    url: "/admin/dashboard/time-slots",
+    icon: Contact,
+  },
+  {
+    title: "Manage Users",
+    url: "/admin/dashboard/users",
+    icon: Contact,
+  },
+  {
+    title: "Manage Appointments",
+    url: "/admin/dashboard/appointments",
     icon: Contact,
   },
 ];

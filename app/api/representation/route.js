@@ -7,16 +7,15 @@ const prisma = new PrismaClient();
 export async function POST(req) {
   try {
     const body = await req.json();
-    console.log('body: ', body);
     const { country, name, phone, email, website, address, details } = body;
 
     // Validate required fields
-    if (!country) {
-      return NextResponse.json(
-        { error: "Country is required." },
-        { status: 400 }
-      );
-    }
+    // if (!country) {
+    //   return NextResponse.json(
+    //     { error: "Country is required." },
+    //     { status: 400 }
+    //   );
+    // }
 
     // Create a new representation
     const representation = await prisma.representation.create({
@@ -33,9 +32,7 @@ export async function POST(req) {
 
     // Check if the session exists
     const cookieStore = await cookies();
-    console.log('cookieStore: ', cookieStore);
     const temp = cookieStore.get("session");
-    console.log('temp: ', temp);
     const session = await decrypt(temp?.value);
 
     // If the user is not logged in, return a 401 Unauthorized response

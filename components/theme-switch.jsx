@@ -14,7 +14,7 @@ export const ThemeSwitch = ({ className, classNames }) => {
   const isSSR = useIsSSR();
 
   const onChange = () => {
-    theme === "light" ? setTheme("dark") : setTheme("light");
+    theme === "dark" ? setTheme("light") : setTheme("dark");
   };
 
   const {
@@ -27,7 +27,7 @@ export const ThemeSwitch = ({ className, classNames }) => {
   } = useSwitch({
     isSelected: theme === "light" || isSSR,
     "aria-label": `Switch to ${
-      theme === "light" || isSSR ? "dark" : "light"
+      theme === "light" || isSSR ? "light" : "light"
     } mode`,
     onChange,
   });

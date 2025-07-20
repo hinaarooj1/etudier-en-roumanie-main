@@ -16,7 +16,25 @@ datasource db {
   // or you'll have dangling databases from migrations
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
+model TimeSlotConfig {
+  id        Int     @id @default(autoincrement())
+  startTime String  @default("09:00")
+  endTime   String  @default("17:00")
+  interval  Int     @default(30)
+  isActive  Boolean @default(true)
+}
 
+model DisabledSlot {
+  id          Int      @id @default(autoincrement())
+  date        DateTime?
+  startTime   String
+  endTime     String
+  isRecurring Boolean  @default(false)
+  dayOfWeek   Int?
+  reason      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
 model Contact {
   id        Int      @id @default(autoincrement())
   name      String
@@ -65,12 +83,49 @@ model Procuration {
   userId      Int 
 }
 model Reservation {
-  id          Int       @id @default(autoincrement())
-  email   String
-  name    String
-  time        String
-  date        String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id            String   @id @default(uuid())
+  userId        String?
+  reason        String?
+  email         String
+  name          String
+  time          String
+  date          String
+  phone         String? 
+  status        String    @default("CONFIRMED")
+  manageToken   String?   @unique
+  tokenExpiry   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   
+  cancelledAt   DateTime?
+  cancelledBy   String? 
+ 
+
+  completedAt   DateTime?
+
+
+  // Relationships
+  @@index([email])
+  @@index([status])
+  @@index([manageToken])
+}
+model Customer {
+  id               String   @id @default(uuid())
+  email            String   @unique
+  password         String
+  firstName        String
+  lastName         String
+  phone            String
+  dateOfBirth      DateTime
+  placeOfResidence String
+  passportNumber   String
+  isVerified       Boolean  @default(false)
+  verifyToken      String?
+  verifyTokenExpiry DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  isAdmin          Boolean  @default(false)
+
+  @@index([email])
+  @@index([passportNumber])
 }

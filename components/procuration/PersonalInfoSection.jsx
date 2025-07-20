@@ -44,13 +44,13 @@ export const PersonalInfoSection = ({ type, control, errors, register }) => {
           )}
         </div>
         <div className="space-y-2">
-          <Label htmlFor={`${person}.firstName`}>Email</Label>
+          <Label htmlFor={`${person}.email`}>Email</Label>
           <Input
-            {...register(`${person}.firstName`, { required: true })}
+            {...register(`${person}.email`, { required: true })}
             placeholder="Email"
             className="border-gray-300"
           />
-          {errors?.[person]?.firstName && (
+          {errors?.[person]?.email && (
             <p className="text-xs text-red-500">Ce champ est requis</p>
           )}
         </div>

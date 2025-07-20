@@ -21,12 +21,12 @@ export async function POST(req) {
     } = body;
 
     // Validate required fields
-    if (!companyName || !email || !phone) {
-      return NextResponse.json(
-        { error: "Company name, email, and phone are required." },
-        { status: 400 }
-      );
-    }
+    // if (!companyName || !email || !phone) {
+    //   return NextResponse.json(
+    //     { error: "Company name, email, and phone are required." },
+    //     { status: 400 }
+    //   );
+    // }
     const cookieStore = await cookies();
     const temp = cookieStore.get("session");
     const session = await decrypt(temp.value);
@@ -91,9 +91,7 @@ export async function DELETE(req) {
     // Extract search parameters from the URL
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
-
-    console.log("Received search params:", searchParams);
-
+ 
     // Check if the session exists
     const cookieStore = await cookies();
     const temp = cookieStore.get("session");

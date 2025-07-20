@@ -14,8 +14,8 @@ export default function Calendar({ selectedDate, setSelectedDate }) {
   }, []);
 
   // Helper functions
-  const monthNames = ["January", "February", "March", "April", "May", "June", 
-                     "July", "August", "September", "October", "November", "December"];
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
 
   const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
   const getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
@@ -63,7 +63,7 @@ export default function Calendar({ selectedDate, setSelectedDate }) {
   // Render loading state for server
   if (!isMounted) {
     return (
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-6">
+      <div className=" bg-white rounded-xl shadow-md p-6">
         <div className="animate-pulse">
           <div className="h-8 w-3/4 bg-gray-200 rounded mb-4 mx-auto"></div>
           <div className="grid grid-cols-7 gap-2 mb-2">
@@ -132,11 +132,11 @@ export default function Calendar({ selectedDate, setSelectedDate }) {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+    <div className="  bg-e rounded-xl shadow-md overflow-hidden">
       <div className="p-6">
         {/* Month navigation */}
         <div className="flex items-center justify-between mb-4">
-          <button 
+          <button
             onClick={() => changeMonth(-1)}
             className="p-2 rounded-full hover:bg-gray-100"
             aria-label="Previous month"
@@ -148,7 +148,7 @@ export default function Calendar({ selectedDate, setSelectedDate }) {
           <h2 className="text-xl font-semibold text-gray-800">
             {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
           </h2>
-          <button 
+          <button
             onClick={() => changeMonth(1)}
             className="p-2 rounded-full hover:bg-gray-100"
             aria-label="Next month"

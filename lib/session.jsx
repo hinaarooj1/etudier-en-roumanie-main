@@ -4,13 +4,16 @@ import { cookies } from "next/headers";
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
-export async function createSession(userId) {
+export async function createSession({ userId, isAdmin, email }) {
   const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
-  const session = await encrypt({ userId, expiresAt });
+  const session = await encrypt({ userId, isAdmin, email, expiresAt });
+
   cookies().set("session", session, {
     httpOnly: true,
     secure: true,
     expires: expiresAt,
+    sameSite: 'strict',
+    path: '/',
   });
 }
 
@@ -33,6 +36,6 @@ export async function decrypt(session) {
     });
     return payload;
   } catch (error) {
-    console.log("Failed to verify session", error.message);
+    return null;
   }
 }

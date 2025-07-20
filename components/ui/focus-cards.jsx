@@ -99,8 +99,7 @@ const Card = ({ card, index, hovered, setHovered, onCardClick }) => (
 );
 
 export default function FocusCards({ data, onCardClick }) {
-  const [hovered, setHovered] = useState(null);
-  console.log("card is ", data);
+  const [hovered, setHovered] = useState(null); 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-10 w-full mx-auto md:px-8 w-full">
       {data.map((card, index) => (

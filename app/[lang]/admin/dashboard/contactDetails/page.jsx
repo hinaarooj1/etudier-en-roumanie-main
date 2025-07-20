@@ -11,15 +11,7 @@ import { fetcher } from "@/lib/utils/fetcher";
 // Define Zod schema for validation
 const contactSchema = z.object({
   companyName: z.string().min(1, "Company Name is required"),
-  address: z.string().optional(),
-  postalCode: z.string().optional(),
-  fiscalCode: z.string().optional(),
-  registrationNumber: z.string().optional(),
-  phone: z.string().min(1, "Phone number is required"),
-  mobilePhone: z.string().optional(),
-  email: z.string().email("Invalid email address"),
-  website: z.string().url("Invalid website URL").optional(),
-  businessHours: z.string().optional(),
+  
 });
 
 export default function ContactPage() {
@@ -78,7 +70,7 @@ export default function ContactPage() {
       });
 
       const data = await response.json();
-      console.log(data);
+       
       // Reset the form fields
       setForm({
         companyName: "",
@@ -132,7 +124,6 @@ export default function ContactPage() {
   };
 
   const { data, error, isLoading } = useSWR("/api/contactDetails", fetcher);
-  // console.log(data?.data);;
 
   return (
     <div className="container mx-auto p-4">
@@ -167,9 +158,8 @@ export default function ContactPage() {
                   value={form[name]}
                   onChange={(e) => setForm({ ...form, [name]: e.target.value })}
                   required={
-                    name === "companyName" ||
-                    name === "email" ||
-                    name === "phone"
+                    name === "companyName"  
+                 
                   }
                 />
                 {errors[name] && (

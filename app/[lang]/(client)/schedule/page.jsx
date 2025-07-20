@@ -16,7 +16,11 @@ export default function Reservations() {
   const handleSubmit = async (reservationData) => {
     try {
       setIsloading(true)
-      console.log('selectedDate: ', selectedDate);
+      const formattedDate = selectedDate.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',  // <-- add year here
+      }); 
       const response = await fetch('/api/reservations', {
         method: 'POST',
         headers: {
@@ -24,10 +28,7 @@ export default function Reservations() {
         },
         body: JSON.stringify({
           ...reservationData,
-          date: selectedDate.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric'
-          }),
+          date: formattedDate,
           time: selectedTime
         }),
       });
@@ -38,13 +39,16 @@ export default function Reservations() {
       }
     } catch (error) {
       setIsloading(false)
-      console.error('Error submitting reservation:', error);
+      toast.error('Error submitting reservation');
+    } finally {
+      setIsloading(false)
+
     }
   };
 
   if (isSubmitted) {
     return (
-      <div className="max-w-md mx-auto p-4 text-center">
+      <div className="max-w-md my-10 mx-auto p-4 text-center">
         <h2 className="text-2xl font-bold mb-4">Reservation Confirmed!</h2>
         <p>
           Thank you for your reservation. We'll see you on {selectedDate.toLocaleDateString('en-US', {
@@ -52,35 +56,42 @@ export default function Reservations() {
             day: 'numeric'
           })} at {selectedTime}.
         </p>
+
+        <p className="mt-2">A confirmation email has been sent with management options.</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-md mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Make a Reservation</h1>
+    <div className='mb-6'>
+      <div className="max-w-md mx-auto">
+        <h1 className="text-2xl font-bold ">Make a Reservation</h1></div>
+      <div className="flex mx-auto p-4 justify-center gap-8 flex-wrap">
 
-      <Calendar
-        selectedDate={calendarSelectedDate}
-        setSelectedDate={setSelectedDate}
-      />
-
-      <TimeSlots
-        selectedDate={selectedDate}
-        onTimeSelect={setSelectedTime}
-      />
-
-      {selectedDate && selectedTime && (
-        <ReservationForm
-          date={selectedDate.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric'
-          })}
-          isloading={isloading}
-          time={selectedTime}
-          onSubmit={handleSubmit}
+        <Calendar
+          selectedDate={calendarSelectedDate}
+          setSelectedDate={setSelectedDate}
         />
-      )}
+
+        <TimeSlots
+          selectedDate={selectedDate}
+          onTimeSelect={setSelectedTime}
+        />
+        {selectedDate && selectedTime && (
+          <ReservationForm
+            date={selectedDate.toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric'
+            })}
+            isloading={isloading}
+            time={selectedTime}
+            onSubmit={handleSubmit}
+          />
+        )}
+      </div>
+
+      <div className='max-w-md mx-auto '>
+      </div>
     </div>
   );
 }

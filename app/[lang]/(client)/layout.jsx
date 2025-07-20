@@ -35,13 +35,16 @@ export default function RootLayout({ children, params }) {
 
   return (
     <>
-     <ThemeProvider themeProps={{ attribute: "class", defaultTheme: "light" }}>
-          <div className="relative flex flex-col h-screen">
-            <Navbar />
-            <main className="mx-2">{children}</main>
-            <Footer />
-          </div>
-          <Toaster />
-        </ThemeProvider></>
+      <ThemeProvider attribute="class"
+        defaultTheme="light"
+        enableSystem={false}
+        forcedTheme="light">
+        <div className="relative flex flex-col h-screen">
+          <Navbar />
+          <main className="mx-2">{children}</main>
+          <Footer />
+        </div>
+        <Toaster />
+      </ThemeProvider></>
   );
 }

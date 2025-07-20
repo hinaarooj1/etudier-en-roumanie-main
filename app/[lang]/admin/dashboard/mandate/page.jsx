@@ -37,12 +37,11 @@ const AgentDashboardPage = () => {
   });
 
   const handleProcurationSubmit = (data) => {
-    // console.log('datadd: ', data);
+    
     const updatedStudents = [...students, data];
     localStorage.setItem('students', JSON.stringify(updatedStudents));
     setStudents(updatedStudents);
     setSelectedProcuration(data);
-    console.log('data: ', data);
   };
 
   return (

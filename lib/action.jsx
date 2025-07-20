@@ -3,15 +3,15 @@ import { createSession, deleteSession } from "./session";
 import { redirect } from "next/navigation";
 import { signInSchema } from "./zod";
 
-const testUser = {
+const adminUser = {
   id: 1,
-  email: process.env.EMAIL,
-  password: process.env.PASSWORD,
+  email: process.env.EMAIL,  // Changed from EMAIL to ADMIN_EMAIL for clarity
+  password: process.env.PASSWORD,  // Changed from PASSWORD to ADMIN_PASSWORD
+  isAdmin: true  // Explicit admin flag
 };
 
 export async function login(prevState, formData) {
   const result = signInSchema.safeParse(Object.fromEntries(formData));
-  console.log("formData", result);
 
   if (!result.success) {
     return {
@@ -21,15 +21,22 @@ export async function login(prevState, formData) {
 
   const { email, password } = result.data;
 
-  if (email !== testUser.email || password !== testUser.password) {
+  if (email !== adminUser.email || password !== adminUser.password) {
     return {
       errors: {
         email: ["Invalid email or password"],
+        password: ["Invalid email or password"],
       },
     };
   }
 
-  await createSession(testUser.id);
+  // Create session with admin flag
+  await createSession({
+    userId: adminUser.id,
+    isAdmin: true,
+    email: adminUser.email
+  });
+  
   redirect(`/en/admin/dashboard`);
 }
 
