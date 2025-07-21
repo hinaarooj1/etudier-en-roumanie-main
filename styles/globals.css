@@ -169,5 +169,17 @@ html.lenis body {
   .sdsds{
     align-items: center !important;
   }
-  
+  .madarchiitar{
+    margin-left: 30px ;
+  }
+  .padding-putr{
+        padding: 0.4rem 0.3rem;
+
+  }
+  .zee-index{
+    z-index: 99999;
+  }
+  .padding-putr.non{
+    display: none !important;
+  }
 }
