@@ -10,6 +10,7 @@ export default function DisabledSlotsManager() {
     startTime: '12:00',
     endTime: '13:00',
     isRecurring: false,
+    dayOfWeek: 0,  // Add this line
     reason: 'Lunch break'
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +40,7 @@ export default function DisabledSlotsManager() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newSlot),
+        
       });
       if (!response.ok) throw new Error('Failed to add disabled slot');
       const addedSlot = await response.json();
@@ -48,6 +50,7 @@ export default function DisabledSlotsManager() {
         startTime: '12:00',
         endTime: '13:00',
         isRecurring: false,
+        dayOfWeek: 0,  // Add this line
         reason: ''
       });
       alert('Disabled slot added successfully!');
@@ -75,7 +78,7 @@ export default function DisabledSlotsManager() {
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6">Manage Disabled Time Slots</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-gray-50 p-4 rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Add Disabled Slot</h2>
@@ -85,7 +88,7 @@ export default function DisabledSlotsManager() {
               <input
                 type="date"
                 value={newSlot.date}
-                onChange={(e) => setNewSlot({...newSlot, date: e.target.value})}
+                onChange={(e) => setNewSlot({ ...newSlot, date: e.target.value })}
                 className="w-full p-2 border rounded"
                 disabled={newSlot.isRecurring}
                 required={!newSlot.isRecurring}
@@ -96,7 +99,7 @@ export default function DisabledSlotsManager() {
                 <input
                   type="checkbox"
                   checked={newSlot.isRecurring}
-                  onChange={(e) => setNewSlot({...newSlot, isRecurring: e.target.checked})}
+                  onChange={(e) => setNewSlot({ ...newSlot, isRecurring: e.target.checked })}
                   className="p-2 border rounded"
                 />
                 <span>Recurring (weekly)</span>
@@ -107,7 +110,7 @@ export default function DisabledSlotsManager() {
                 <label className="block mb-1">Day of Week:</label>
                 <select
                   value={newSlot.dayOfWeek || 0}
-                  onChange={(e) => setNewSlot({...newSlot, dayOfWeek: Number(e.target.value)})}
+                  onChange={(e) => setNewSlot({ ...newSlot, dayOfWeek: Number(e.target.value) })}
                   className="w-full p-2 border rounded"
                   required
                 >
@@ -127,7 +130,7 @@ export default function DisabledSlotsManager() {
                 <input
                   type="time"
                   value={newSlot.startTime}
-                  onChange={(e) => setNewSlot({...newSlot, startTime: e.target.value})}
+                  onChange={(e) => setNewSlot({ ...newSlot, startTime: e.target.value })}
                   className="w-full p-2 border rounded"
                   required
                 />
@@ -137,7 +140,7 @@ export default function DisabledSlotsManager() {
                 <input
                   type="time"
                   value={newSlot.endTime}
-                  onChange={(e) => setNewSlot({...newSlot, endTime: e.target.value})}
+                  onChange={(e) => setNewSlot({ ...newSlot, endTime: e.target.value })}
                   className="w-full p-2 border rounded"
                   required
                 />
@@ -148,7 +151,7 @@ export default function DisabledSlotsManager() {
               <input
                 type="text"
                 value={newSlot.reason || ''}
-                onChange={(e) => setNewSlot({...newSlot, reason: e.target.value})}
+                onChange={(e) => setNewSlot({ ...newSlot, reason: e.target.value })}
                 className="w-full p-2 border rounded"
                 placeholder="E.g., Maintenance, Lunch break"
               />
@@ -172,8 +175,8 @@ export default function DisabledSlotsManager() {
                 <div key={slot.id} className="border p-3 rounded-lg flex justify-between items-center">
                   <div>
                     <p className="font-medium">
-                      {slot.isRecurring 
-                        ? `Every ${getDayName(slot.dayOfWeek || 0)}` 
+                      {slot.isRecurring
+                        ? `Every ${getDayName(slot.dayOfWeek || 0)}`
                         : new Date(slot.date).toLocaleDateString()}
                     </p>
                     <p>

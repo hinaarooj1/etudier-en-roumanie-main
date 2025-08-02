@@ -3,9 +3,6 @@ import { cookies } from "next/headers";
 import { decrypt } from "@/lib/session";
 import prisma from "@/lib/prisma";
 
-// 
-
-
 export async function GET(req) {
     try {
         // Verify admin session
@@ -28,10 +25,19 @@ export async function GET(req) {
             );
         }
 
-        // Check if user is admin
+        // Get pagination parameters from query string
+        const { searchParams } = new URL(req.url);
+        const page = parseInt(searchParams.get('page') || '1');
+        const limit = parseInt(searchParams.get('limit') || '6');
+        const skip = (page - 1) * limit;
 
-        // Get all appointments
+        // Get total count of appointments for pagination
+        const totalItems = await prisma.reservation.count();
+
+        // Get paginated appointments
         const appointments = await prisma.reservation.findMany({
+            skip,
+            take: limit,
             orderBy: [
                 { date: "asc" },
                 { time: "asc" }
@@ -53,9 +59,18 @@ export async function GET(req) {
             }
         });
 
+        // Calculate total pages
+        const totalPages = Math.ceil(totalItems / limit);
+
         return NextResponse.json({
             success: true,
-            data: appointments
+            data: appointments,
+            pagination: {
+                totalItems,
+                totalPages,
+                currentPage: page,
+                itemsPerPage: limit
+            }
         });
 
     } catch (error) {
@@ -69,6 +84,3 @@ export async function GET(req) {
         );
     }
 }
-
-
-

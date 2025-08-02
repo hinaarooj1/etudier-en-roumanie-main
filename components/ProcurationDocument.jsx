@@ -9,6 +9,7 @@ const ProcurationDocument = ({ data }) => {
   const totalPages = 6;
 
   const [isClient, setIsClient] = useState(false);
+  console.log('isClient: ', data);
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -33,7 +34,7 @@ const ProcurationDocument = ({ data }) => {
     if (isClient) {
       const { generateProcurationPDF } = await import("@/services/pdfService");
       const pdf = generateProcurationPDF(data);
-      pdf.save('procuration.pdf');
+      pdf.save(`Procuration & Contract - ${data?.delegator?.firstName +" "+ data?.delegator?.lastName }.pdf`);
     }
   };
 

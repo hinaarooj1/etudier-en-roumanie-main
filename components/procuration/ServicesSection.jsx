@@ -33,7 +33,7 @@ export const ServicesSection = ({ control, register }) => {
                   <SelectTrigger className="border-gray-300">
                     <SelectValue placeholder="Sélectionnez un pack" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className='bg-white'>
                     <SelectItem value="PRE_INSCRIPTION">Pack Pré-inscription</SelectItem>
                     <SelectItem value="INSCRIPTION">Pack Inscription</SelectItem>
                     <SelectItem value="COMPLET">Pack Complet</SelectItem>
